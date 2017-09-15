@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- 	<hibernate-mapper>
+		<class name="com.zhiyou100.helloworld.model.User" table="t_user">
+			<id name="id" column="u_id">
+				<generator class="native"></generator>
+			</id>
+			<property name="name" column="u_name"></property>
+			<property name="age" column="u_age"></property>
+		</class>
+			
+	</hibernate-mapper> -->
+	<hibernate-mapping package="com.zhiyou100.video.ssh.model">
+		<class name="Admin" table="admin">
+			<id name="id">
+				<generator class="native"></generator>
+			</id>
+			<property name="loginName" column="login_name"></property>
+			<property name="loginPwd" column="login_pwd"></property>
+		</class>
+	</hibernate-mapping>

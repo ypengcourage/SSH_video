@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- 	<hibernate-mapper>
+		<class name="com.zhiyou100.helloworld.model.User" table="t_user">
+			<id name="id" column="u_id">
+				<generator class="native"></generator>
+			</id>
+			<property name="name" column="u_name"></property>
+			<property name="age" column="u_age"></property>
+		</class>
+			
+	</hibernate-mapper> -->
+	<hibernate-mapping package="com.zhiyou100.video.ssh.model">
+		<class name="User" table="user" dynamic-update="true">
+			<id name="id">
+				<generator class="native"></generator>
+			</id>
+			<property name="nickName" column="nick_name"></property>
+			<property name="sex"></property>
+			<property name="birthday"></property>
+			<property name="email"></property>
+			<property name="province"></property>
+			<property name="city"></property>
+			<property name="headUrl" column="head_url"></property>
+			<property name="password"></property>
+			<property name="insertTime" column="insert_time"></property>
+			<property name="updateTime" column="update_time"></property>
+			<property name="captcha"></property>
+		</class>
+	</hibernate-mapping>

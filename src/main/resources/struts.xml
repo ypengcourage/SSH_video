@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+	<struts>
+		<constant name="struts.i18n.encoding" value="UTF-8"></constant>
+		<constant name="struts.action.extension" value="action,do,"></constant>
+		<constant name="struts.objectFactory" value="spring"></constant>
+		
+		
+		
+		
+		
+		
+		<package name="admin" extends="struts-default" namespace="/admin">
+			<action name="admin_*" class="adminAction" method="{1}">
+				<result name="success">/WEB-INF/view/admin/login.jsp</result>
+				<result name="success1" type="chain">
+					<param name="namespace">/admin/video</param>
+					<param name="actionName">video_list</param>
+				</result>
+			</action>
+		</package>
+		<package name="course" extends="struts-default" namespace="/admin/course">
+			<interceptors>
+				<interceptor name="adminInterceptor" class="com.zhiyou100.video.ssh.web.interceptor.AdminInterceptor"></interceptor>
+				<interceptor-stack name="adminStack">
+					<interceptor-ref name="adminInterceptor"></interceptor-ref>
+					<interceptor-ref name="defaultStack"></interceptor-ref>
+				</interceptor-stack>
+			</interceptors>
+			<default-interceptor-ref name="adminStack"></default-interceptor-ref>
+			<action name="course_*" method="{1}" class="courseAction">
+				<result>/WEB-INF/view/admin/course/courseList.jsp</result>
+				<result name="toAdd">/WEB-INF/view/admin/course/addCourse.jsp</result>
+				<result name="toUpdate">/WEB-INF/view/admin/course/updateCourse.jsp</result>
+				<result name="toList" type="chain">
+					<param name="namespace">/admin/course</param>
+					<param name="actionName">course_list</param>
+				</result>
+			</action>
+		</package>
+		
+		
+		
+		<package name="ajax" extends="json-default" namespace="/admin/ajax">
+			<interceptors>
+				<interceptor name="adminInterceptor" class="com.zhiyou100.video.ssh.web.interceptor.AdminInterceptor"></interceptor>
+				<interceptor-stack name="adminStack">
+					<interceptor-ref name="adminInterceptor">
+						<param name="excludeMethods">userLogin,userRegist,sendEmail,state</param>
+					</interceptor-ref>
+					<interceptor-ref name="defaultStack"></interceptor-ref>
+				</interceptor-stack>
+			</interceptors>
+			<default-interceptor-ref name="adminStack"></default-interceptor-ref>
+			<action name="ajax_*" class="ajaxAction" method="{1}">
+				<result type="json">
+					<param name="root">result</param>
+				</result>
+			</action>
+		</package>
+		
+		
+		
+		
+		<package name="video" extends="struts-default" namespace="/admin/video">
+			<interceptors>
+				<interceptor name="adminInterceptor" class="com.zhiyou100.video.ssh.web.interceptor.AdminInterceptor"></interceptor>
+				<interceptor-stack name="adminStack">
+					<interceptor-ref name="adminInterceptor"></interceptor-ref>
+					<interceptor-ref name="defaultStack"></interceptor-ref>
+				</interceptor-stack>
+			</interceptors>
+			<default-interceptor-ref name="adminStack"></default-interceptor-ref>
+			<action name="video_*" class="videoAction" method="{1}">
+				<result>/WEB-INF/view/admin/video/videoList.jsp</result>
+				<result name="toAdd">/WEB-INF/view/admin/video/addVideo.jsp</result>
+				<result name="toUpdate">/WEB-INF/view/admin/video/updateVideo.jsp</result>
+				<result name="toList" type="redirectAction">
+					<param name="namespace">/admin/video</param>
+					<param name="actionName">video_list</param>
+				</result>
+			</action>
+			<action name="stat_*" class="statAction" method="{1}">
+				<result>/WEB-INF/view/admin/stat/stat.jsp</result>
+			</action>
+		</package>
+		
+		
+		
+		
+		
+		<package name="speaker" extends="struts-default" namespace="/admin/speaker">
+			<interceptors>
+				<interceptor name="adminInterceptor" class="com.zhiyou100.video.ssh.web.interceptor.AdminInterceptor"></interceptor>
+				<interceptor-stack name="adminStack">
+					<interceptor-ref name="adminInterceptor"></interceptor-ref>
+					<interceptor-ref name="defaultStack"></interceptor-ref>
+				</interceptor-stack>
+			</interceptors>
+			<default-interceptor-ref name="adminStack"></default-interceptor-ref>
+			<action name="speaker_*" class="speakerAction" method="{1}">
+				<result>/WEB-INF/view/admin/speaker/speakerList.jsp</result>
+				<result name="toAdd">/WEB-INF/view/admin/speaker/addSpeaker.jsp</result>
+				<result name="toUpdate">/WEB-INF/view/admin/speaker/updateSpeaker.jsp</result>
+				<result name="toList" type="redirectAction">
+					<param name="namespace">/admin/speaker</param>
+					<param name="actionName">speaker_list</param>
+				</result>
+			</action>
+		</package>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<package name="front" extends="struts-default" namespace="/front/user">
+			<interceptors>
+				<interceptor name="frontinterceptor" class="com.zhiyou100.video.ssh.web.interceptor.Frontinterceptor"></interceptor>
+				<interceptor-stack name="frontStack">
+					<interceptor-ref name="frontinterceptor">
+						<param name="excludeMethods">toForgetpwd,forgetpwd,resetpwd</param>
+					</interceptor-ref>
+					<interceptor-ref name="defaultStack"></interceptor-ref>
+				</interceptor-stack>
+			</interceptors>
+			<default-interceptor-ref name="frontStack"></default-interceptor-ref>
+			<action name="user_*" class="userAction" method="{1}">
+				<result>/WEB-INF/view/front/user/index.jsp</result>
+				<result name="success1" type="redirect">/index.jsp</result>
+				<result name="toProfile">/WEB-INF/view/front/user/profile.jsp</result>
+				<result name="toAvatar">/WEB-INF/view/front/user/avatar.jsp</result>
+				<result name="toPassword">/WEB-INF/view/front/user/password.jsp</result>
+				<result name="toForgetpwd">/WEB-INF/view/front/user/forget_pwd.jsp</result>
+				<result name="toRestPwd">/WEB-INF/view/front/user/reset_pwd.jsp</result>
+			</action>
+		</package>
+		
+		<package name="frontCourse" extends="struts-default" namespace="/front/course">
+			<action name="course_*" class="frontCourseAction" method="{1}">
+				<result>/WEB-INF/view/front/course/index.jsp</result>
+			</action>
+		</package>
+		
+		<package name="frontVideo" extends="struts-default" namespace="/front/video">
+			<action name="video_*" class="frontVideoAction" method="{1}">
+				<result>/WEB-INF/view/front/video/index.jsp</result>
+				<result name="success1">/WEB-INF/view/front/video/content.jsp</result>
+			</action>
+		</package>
+		
+		
+		
+		
+		
+		
+		
+	</struts>

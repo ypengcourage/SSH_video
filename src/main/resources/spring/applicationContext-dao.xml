@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
+<!-- 配置引入数据库db.properties -->
+<context:property-placeholder location="classpath:db.properties"/>		
+<!-- 配置数据库连接池 -->
+<bean name="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+	<property name="driverClass" value="${jdbc.driverClass}"></property>
+	<property name="jdbcUrl" value="${jdbc.jdbcUrl}"></property>
+	<property name="user" value="${jdbc.user}"></property>
+	<property name="password" value="${jdbc.password}"></property>
+</bean>	
+<bean name="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+	<property name="dataSource" ref="dataSource"></property>
+	<property name="hibernateProperties">
+		<props>
+			<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+			<prop key="hibernate.show_sql">true</prop>
+			<prop key="hibernate.format_sql">true</prop>
+			<prop key="hibernate.hbm2ddl.auto">update</prop>
+		</props>
+	</property>
+	<property name="mappingDirectoryLocations" value="classpath:com/zhiyou100/video/ssh/model"></property>
+</bean>
+<bean class="com.zhiyou100.video.ssh.dao.impl.AdminDaoImpl">
+	<property name="sessionFactory" ref="sessionFactory"></property>
+</bean>
+<bean class="com.zhiyou100.video.ssh.dao.impl.CourseDaoImpl">
+	<property name="sessionFactory" ref="sessionFactory"></property>
+</bean>
+<bean class="com.zhiyou100.video.ssh.dao.impl.VideoDaoImpl">
+	<property name="sessionFactory" ref="sessionFactory"></property>
+</bean>
+<bean class="com.zhiyou100.video.ssh.dao.impl.SpeakerDaoImpl">
+	<property name="sessionFactory" ref="sessionFactory"></property>
+</bean>
+<bean class="com.zhiyou100.video.ssh.dao.impl.UserDaoImpl">
+	<property name="sessionFactory" ref="sessionFactory"></property>
+</bean>
+
+</beans>	
