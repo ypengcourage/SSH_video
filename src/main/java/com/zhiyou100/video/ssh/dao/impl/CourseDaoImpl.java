@@ -47,8 +47,12 @@ public class CourseDaoImpl extends HibernateDaoSupport implements CourseDao {
 
 	@Override
 	public void updateCourse(Course course) {
-		course.setUpdateTime(new Timestamp(System.currentTimeMillis()));
-		getHibernateTemplate().update(course);
+		List<Course> list = (List<Course>) getHibernateTemplate().find("from Course where id = ?", course.getId());
+		Course course1 = list.get(0);
+		course1.setCourseDescr(course.getCourseDescr());
+		course1.setCourseName(course.getCourseName());
+		course1.setSubject(course.getSubject());
+		course1.setUpdateTime(new Timestamp(System.currentTimeMillis()));
 	}
 
 	@Override

@@ -80,6 +80,7 @@
 			  <div class="form-group">
 			    <div class="col-sm-offset-2 col-sm-3">
 			    <input type="hidden" name="id" value="${video1.id}">
+			    <input type="hidden" name="videoPlayTimes" value="${video1.videoPlayTimes}">
 			      <button type="submit" class="btn btn-primary">提交</button>
 			      <a type="button" class="btn btn-default" href="javascript:history.go(-1)">返回列表</a>
 			    </div>

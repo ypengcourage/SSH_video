@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
 import com.zhiyou100.video.ssh.dao.SpeakerDao;
@@ -44,8 +45,14 @@ public class SpeakerDaoImpl extends HibernateDaoSupport implements SpeakerDao {
 
 	@Override
 	public void updateSpeaker(Speaker speaker) {
-		speaker.setUpdateTime(new Timestamp(System.currentTimeMillis()));
-		getHibernateTemplate().update(speaker);
+		DetachedCriteria dc = DetachedCriteria.forClass(Speaker.class);
+		dc.add(Restrictions.eq("id", speaker.getId()));
+		Speaker speaker1 = (Speaker) getHibernateTemplate().findByCriteria(dc).get(0);
+		speaker1.setSpeakerDescr(speaker.getSpeakerDescr());
+		speaker1.setUpdateTime(new Timestamp(System.currentTimeMillis()));
+		speaker1.setSpeakerHeadUrl(speaker.getSpeakerHeadUrl());
+		speaker1.setSpeakerJob(speaker.getSpeakerJob());
+		speaker1.setSpeakerName(speaker.getSpeakerName());
 	}
 
 	@Override

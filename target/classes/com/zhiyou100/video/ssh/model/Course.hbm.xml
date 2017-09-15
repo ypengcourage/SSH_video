@@ -11,7 +11,7 @@
 			<property name="courseDescr" column="course_descr"></property>
 			<property name="insertTime" column="insert_time"></property>
 			<property name="updateTime" column="update_time"></property>
-			<set name="videoSet">
+			<set name="videoSet" inverse="false">
 				<key column="course_id"></key>
 				<one-to-many class="Video"/>
 			</set>
